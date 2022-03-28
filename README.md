@@ -4,9 +4,9 @@ Skripta za računanje srednje vrijednosti odstupanja mjerenja automatke postaje 
 Autor: Sven Azari
 Potrebni programi: Python3
 Naredbe: 
-   del - brisanje zadnjeg unosa
+   del - brisanje zadnjeg unosa (briše zadnji upis razlike i temperature zraka i relativne vlage zraka)
    izl - izlaz iz skripte
-   show - prikaži sve spremljenje razlike
+   show - prikaži sve spremljenje razlike (vrijednosti razlika)
    memload - učitaj memoriju (memorija se sprema u datoteku .mem_avg.py koju će skripta kreirati prilikom prvog korištenja te koja mora biti prisutna u
              istom folderu kao i skripta prilikom učitavanja memorije)
    memclear - oćisti memoriju skripte
