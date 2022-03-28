@@ -1,5 +1,6 @@
 #avg.py
 #autor: Sven Azari
+#http://www.github.com/svenazari
 #naredbe: del, izl, show, memload, memclear
 #Kako bi se mogla koristiti naredba memload, u istom folderu kao i skripta mora biti i datoteka '.avg_mem.txt'
 
