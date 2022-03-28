@@ -2,6 +2,7 @@
 Skripta za računanje srednje vrijednosti odstupanja mjerenja automatke postaje od klaisčnih mjerenja (za temperaturu zraka i relativnu vlagu zraka).
 <pre>
 Autor: Sven Azari
+http://www.github.com/svenazari
 Potrebni programi: Python3
 Naredbe: 
    del - brisanje zadnjeg unosa (briše zadnji upis razlike i temperature zraka i relativne vlage zraka)
