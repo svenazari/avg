@@ -3,7 +3,7 @@ Skripta za računanje srednje vrijednosti odstupanja mjerenja automatke postaje 
 <pre>
 Autor: Sven Azari
 http://www.github.com/svenazari
-Potrebni programi: Python3
+Potrebni programi: Python3, PySimpleGUI (za GUI verziju)
 Naredbe: 
    del - brisanje zadnjeg unosa (briše zadnji upis razlike i temperature zraka i relativne vlage zraka)
    izl - izlaz iz skripte
