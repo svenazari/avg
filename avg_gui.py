@@ -21,7 +21,7 @@ layout = [  [sg.Text("Tk = "), sg.InputText(size=(4,1), key='tk'), sg.Text("Klas
 	    [sg.Text("* * *")],
 	    [sg.Button("Izračunaj"), sg.Button("Učitaj memoriju"), sg.Button("Pregled")],
 	    [sg.Button("Očisti ekran"), sg.Button("Izbriši prvo"), sg.Button("Izbriši zadnje"), sg.Button("Izbriši memoriju")],
-	    [sg.Button("Izlaz")]
+	    [sg.Button("Pomoć"), sg.Button("Izlaz")]
          ]
 
 window = sg.Window("AVG.py").Layout(layout)
@@ -223,4 +223,25 @@ while True:
         window['sdu'].update(Usred)
         window['Tlis'].update(Traz)
         window['Ulis'].update(Uraz)
+        
+    elif event == "Pomoć": #otvaranje ekrana sa tekstom kako koristiti skriptu
+        sg.Print("AVG - GUI verzija")
+        sg.Print("")
+        sg.Print("UPUTE ZA KORIŠTENJE:")
+        sg.Print("")
+        sg.Print("POLJA ZA UNOS:")
+        sg.Print("Tk - Unosi se podatak o temperaturi zraka dobiven klasičnim mjerenjem. Potrebno je koristiti decimalnu točku.")
+        sg.Print("Ta - Unosi se podatak o temperaturi zraka dobiven mjerenjem automatske meteorološke postaje. Potrebno je koristiti decimalnu točku.")
+        sg.Print("Uk - Unosi se podatak o relativnoj vlazi zraka dobiven klasičnim mjerenjem.")
+        sg.Print("Ua - Unosi se podatak o relativnoj vlazi zraka dobiven mjerenjem automatske meteorološke postaje.")
+        sg.Print("")
+        sg.Print("GUMBI ZA NAREDBE:")
+        sg.Print("IZRAČUNAJ - Izračunava razliku između mjerenja. Podatke o razlikama unosi u memoriju skripte te potom računa prosječnu razliku i ispisuje je na ekranu. Prilikom korištenja ove naredbe, nove izračunate vrijednosti razlika se automatski upisuju u .avg_mem.txt datoteku.")
+        sg.Print("UČITAJ MEMORIJU - Učitava podatke iz .avg_mem.txt datoteke koja se treba nalaziti u istoj mapi kao i skripta ili u mapi iz koje se pokreće terminal. Ova naredba će izbrisati postojeću memoriju skripte.")
+        sg.Print("PREGLED - Prikazuje sadržaj listi u koje su spremljene razlike vrijednosti mjerenja.")
+        sg.Print("OČISTI EKRAN - Čisti sadržaj ekrana i pokazuje grafičko sučelje prazno kao pri pokretanju skripte. Ne briše sadržaj memorije.")
+        sg.Print("IZBRIŠI PRVO - Briše najstariji unos u liste memorije skripte.")
+        sg.Print("IZBRIŠI ZADNJE - Briše najstariji unos u liste memorije skripte.")
+        sg.Print("IZBRIŠI MEMORIJU - Briše sav sadržaj lista memorije skripte, ali ne briše memoriju spremljenu u .avg_mem.txt datoteku.")
+
 window.close()
