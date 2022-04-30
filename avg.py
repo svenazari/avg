@@ -358,7 +358,46 @@ def average ():
             Ukf = float (Uk)
             Uaf = float (Ua)
         except ValueError: #ako su svi podaci uneseni, ali ne u pravom obliku (, umjesto .)
-            print ("Nedostaje podatak ili podaci nisu uneseni u odgovarajućem obliku!")
+            try: #zamijeni decimalne zareze točkama i potom pretvaraj u float
+                Tkx = Tk.replace(",",".")
+                Tax = Ta.replace(",",".")
+                Ukx = Uk.replace(",",".")
+                Uax = Ua.replace(",",".")
+                Tkf = float(Tkx)
+                Taf = float(Tax)
+                Ukf = float(Ukx)
+                Uaf = float(Uax)
+                Tra = round(Tkf - Taf,1)
+                Ura = round(Ukf - Uaf)
+                Traz.append(Tra) #dodavanje razlike na listu temperature zraka
+                Uraz.append(Ura) #dodavanje razlike na listu relativne vlage zraka
+                Tsred = str(round(sum(Traz) / len(Traz),1)) #izračun prosječne vrijednosti razlike temperature zraka (len(Traz) - dužina liste)
+                Usred = str(round(sum(Uraz) / len(Uraz))) #izračun prosječne vrijednosti razlike relativne vlage zraka
+                #ispis
+                print ("# dTs = " + Tsred + " #")
+                print ("# dUs = " + Usred + " #")
+                print ("(Srednju razliku treba dodati na podatak AMP-a)")
+                print ("* * * ") 
+                #spremanje razlike za učitavanje kod novog pokretanja skripte 
+                Trazs = []
+                Urazs = []
+                for line in Traz: #pretvaranje u str
+                    lines = str(round(line,1))
+                    Trazs.append(lines) #upis str u Trazs
+                for line in Uraz:
+                    lines1 = str(round(line))
+                    Urazs.append(lines1) #upis str u Urazs
+                upis = open(".avg_mem.txt", "w") #otvaranje datoteke za upis
+                for line in Trazs: #upis razlike temperature
+                    upis.write(line)
+                    upis.write('\n')
+                for line in Urazs: #upis razlike vlage
+                    upis.write(line)
+                    upis.write('\n')
+                upis.close() #zatvaranje datoteke
+            except ValueError: #ako nije moguće pretoviriti u float
+                print ("Nedostaje podatak ili podaci nisu uneseni u odgovarajućem obliku!")
+                continue
         else:
             Tra = round(Tkf - Taf,1)
             Ura = round(Ukf - Uaf)
