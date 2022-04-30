@@ -353,15 +353,10 @@ def average ():
             exit()
         clear ()
         try:
-            Tkx = Tk.replace(",",".")
-            Tax = Ta.replace(",",".")
-            Ukx = Uk.replace(",",".")
-            Uax = Ua.replace(",",".")
-            Tkf = float(Tkx)
-            Taf = float(Tax)
-            Ukf = float(Ukx)
-            Uaf = float(Uax)
-            Tra = round(Tkf - Taf,1)
+            Tkf = float(Tk.replace(",","."))
+            Taf = float(Ta.replace(",","."))
+            Ukf = float(Uk.replace(",","."))
+            Uaf = float(Ua.replace(",","."))
         except ValueError: #ako nije moguće pretoviriti u float
             print ("Nedostaje podatak ili podaci nisu uneseni u odgovarajućem obliku!")
             continue
