@@ -46,14 +46,10 @@ while True:
         else:
             try:
                 #float vrijednosti
-                tkx = tk.replace(",",".")
-                tax = ta.replace(",",".")
-                ukx = uk.replace(",",".")
-                uax = ua.replace(",",".")
-                tkf = float(tkx)
-                taf = float(tax)
-                ukf = float(ukx)
-                uaf = float (uax)
+                tkf = float(tk.replace(",","."))
+                taf = float(ta.replace(",","."))
+                ukf = float(uk.replace(",","."))
+                uaf = float(ua.replace(",","."))
             except: #ako nije moguća pretvorba u float
                 sg.Print ("Nedostaje podatak ili podaci nisu uneseni u odgovarajućem obliku!")
             else:
