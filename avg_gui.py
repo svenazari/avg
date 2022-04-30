@@ -46,57 +46,16 @@ while True:
         else:
             try:
                 #float vrijednosti
-                tkf = float(tk)
-                taf = float(ta)
-                ukf = float(uk)
-                uaf = float(ua)
-            except ValueError: #ako su svi podaci uneseni, ali ne u pravom obliku (, umjesto .)
-                try: #zamjena decimalnog zareza u točku
-                    tkx = tk.replace(",",".")
-                    tax = ta.replace(",",".")
-                    ukx = uk.replace(",",".")
-                    uax = ua.replace(",",".")
-                    tkf = float(tkx)
-                    taf = float(tax)
-                    ukf = float(ukx)
-                    uaf = float (uax)
-                    #računanje razlike
-                    dt = round(tkf - taf,1)
-                    du = round(ukf - uaf)
-                    #dodavanje na listu
-                    Traz.append(dt)
-                    Uraz.append(du)
-                    #računanje
-                    Tsred = round(sum(Traz) / len(Traz),1)
-                    Usred = round(sum(Uraz) / len(Uraz))
-                    #spremanje u .avg_mem.txt
-                    Trazs = []
-                    Urazs = []
-                    for line in Traz: #pretvaranje u str
-                        lines = str(round(line,1))
-                        Trazs.append(lines) #upis str u Trazs
-                    for line in Uraz:
-                        lines1 = str(round(line))
-                        Urazs.append(lines1) #upis str u Urazs
-                    upis = open(".avg_mem.txt", "w") #otvaranje datoteke za upis
-                    for line in Trazs: #upis razlike temperature
-                        upis.write(line)
-                        upis.write('\n')
-                    for line in Urazs: #upis razlike vlage
-                        upis.write(line)
-                        upis.write('\n')
-                    upis.close() #zatvaranje datoteke
-                    #ispis
-                    window['sdt'].update(Tsred)
-                    window['sdu'].update(Usred)
-                    window['tk'].update('')
-                    window['ta'].update('')
-                    window['uk'].update('')
-                    window['ua'].update('')
-                    window['Tlis'].update('')
-                    window['Ulis'].update('')
-                except: #ako nije moguća pretvorba u float
-                    sg.Print ("Nedostaje podatak ili podaci nisu uneseni u odgovarajućem obliku!")
+                tkx = tk.replace(",",".")
+                tax = ta.replace(",",".")
+                ukx = uk.replace(",",".")
+                uax = ua.replace(",",".")
+                tkf = float(tkx)
+                taf = float(tax)
+                ukf = float(ukx)
+                uaf = float (uax)
+            except: #ako nije moguća pretvorba u float
+                sg.Print ("Nedostaje podatak ili podaci nisu uneseni u odgovarajućem obliku!")
             else:
                 #računanje razlike
                 dt = round(tkf - taf,1)
