@@ -13,3 +13,6 @@ Naredbe (za CLI verziju):
              istom folderu kao i skripta prilikom učitavanja memorije)
    memclear - oćisti memoriju skripte
 </pre>
+
+NOVO:
+16.06.2022. - U GUI verziji popravljen dio koda za pregled razlika u slučaju da su liste prazne. Skripta u tom slučaju se više ne ruši, već daje obavijest da su liste prazne.
