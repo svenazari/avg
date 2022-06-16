@@ -18,7 +18,7 @@ layout = [  [sg.Text("Tk = "), sg.InputText(size=(4,1), key='tk'), sg.Text("Klas
 	    [sg.Text("Ua = "), sg.InputText(size=(4,1), key='ua'), sg.Text("Automatsko mjerenje vlage zraka", text_color='blue')],
 	    [sg.Text('', text_color='yellow', key='sdu'), sg.Text('', text_color='red', key='Ulis')], #mjesto za ispis srednje razlike mjerenja relativne vlage zraka
 	    [sg.Text("Izračunane vrijednosti treba dodati vrijednosti automatskog mjerenja.", text_color='orange')],
-	    [sg.Text("* * *")],
+        [sg.Text("* * *")],
 	    [sg.Button("Izračunaj"), sg.Button("Učitaj memoriju"), sg.Button("Pregled")],
 	    [sg.Button("Očisti ekran"), sg.Button("Izbriši prvo"), sg.Button("Izbriši zadnje"), sg.Button("Izbriši memoriju")],
 	    [sg.Button("Pomoć"), sg.Button("Izlaz")]
@@ -219,10 +219,14 @@ while True:
         window['Ulis'].update('')
     
     elif event == "Pregled": #pregled upisa u liste
-        window['sdt'].update(Tsred)
-        window['sdu'].update(Usred)
-        window['Tlis'].update(Traz)
-        window['Ulis'].update(Uraz)
+        try:
+            window['sdt'].update(Tsred)
+            window['sdu'].update(Usred)
+            window['Tlis'].update(Traz)
+            window['Ulis'].update(Uraz)
+        except NameError:
+            window['sdt'].update("Memorija skripte je prazna!")
+            window['sdu'].update("Memorija skripte je prazna!")
         
     elif event == "Pomoć": #otvaranje ekrana sa tekstom kako koristiti skriptu
         sg.Print("AVG - GUI verzija")
