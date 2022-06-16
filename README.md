@@ -14,5 +14,5 @@ Naredbe (za CLI verziju):
    memclear - oćisti memoriju skripte
 </pre>
 
-NOVO:
+NOVO:<br>
 16.06.2022. - U GUI verziji popravljen dio koda za pregled razlika u slučaju da su liste prazne. Skripta u tom slučaju se više ne ruši, već daje obavijest da su liste prazne.
