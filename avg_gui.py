@@ -5,11 +5,29 @@
 import PySimpleGUI as sg
 from os.path import exists
 import os
+import random
 
 if exists('.avg_mem.txt') == False: #provjera da li postoji datoteka .avg_mem.txt - ako je nema, skripta ju kreira kako bi bio omogućen upis nakon kalkulacija
         f = open('.avg_mem.txt', 'w+')
 
-sg.theme("DarkGrey")
+#Pomjena teme
+#1 - DarkGrey
+#2 - Black
+#3 - Topanga
+#4 - DarkPurple4
+#tema = 1 #fiksni odabir teme
+tema = random.randrange(1,5,1) #nasumični odabir teme prikom svakog pokretanja skirpte
+
+if tema == 1:
+    sg.theme("DarkGrey")
+elif tema == 2:
+    sg.theme("Black")
+elif tema == 3:
+    sg.theme("Topanga")
+elif tema == 4:
+    sg.theme("DarkPurple4")
+
+
 layout = [  [sg.Text("Tk = "), sg.InputText(size=(4,1), key='tk'), sg.Text("Klasično mjerenje temperaure zraka", text_color='blue')],
 	    [sg.Text("Ta = "), sg.InputText(size=(4,1), key='ta'), sg.Text("Automatsko mjerenje temperaure zraka", text_color='blue')],
 	    [sg.Text('', text_color='yellow', key='sdt'), sg.Text('', text_color='red', key='Tlis')], #mjesto za ispis srednje razlike mjerenja temperature zraka
@@ -18,10 +36,12 @@ layout = [  [sg.Text("Tk = "), sg.InputText(size=(4,1), key='tk'), sg.Text("Klas
 	    [sg.Text("Ua = "), sg.InputText(size=(4,1), key='ua'), sg.Text("Automatsko mjerenje vlage zraka", text_color='blue')],
 	    [sg.Text('', text_color='yellow', key='sdu'), sg.Text('', text_color='red', key='Ulis')], #mjesto za ispis srednje razlike mjerenja relativne vlage zraka
 	    [sg.Text("Izračunane vrijednosti treba dodati vrijednosti automatskog mjerenja.", text_color='orange')],
-        [sg.Text("* * *")],
-	    [sg.Button("Izračunaj"), sg.Button("Učitaj memoriju"), sg.Button("Pregled")],
-	    [sg.Button("Očisti ekran"), sg.Button("Izbriši prvo"), sg.Button("Izbriši zadnje"), sg.Button("Izbriši memoriju")],
-	    [sg.Button("Pomoć"), sg.Button("Izlaz")]
+        [sg.Button("Izračunaj"), sg.Button("Učitaj memoriju"), sg.Button("Pregled")],
+        [sg.Button("Izbriši prvo"), sg.Button("Izbriši zadnje"), sg.Button("Izbriši memoriju")],
+        [sg.Text("Izračun vrijednosti temperature i vlage zraka sa korekcijom", text_color="yellow")],
+        [sg.Text("T = "), sg.InputText(size=(4,1), key='t'), sg.Text('', text_color='yellow', key='ti')],
+        [sg.Text("U = "), sg.InputText(size=(4,1), key='u'), sg.Text('', text_color='yellow', key='ui')],
+	    [sg.Button("Izračuaj T i U"), sg.Button("Očisti ekran"), sg.Button("Pomoć"), sg.Button("Izlaz")]
          ]
 
 window = sg.Window("AVG.py").Layout(layout)
@@ -217,6 +237,10 @@ while True:
         window['ua'].update('')
         window['Tlis'].update('')
         window['Ulis'].update('')
+        window['t'].update('')
+        window['ti'].update('')
+        window['u'].update('')
+        window['ui'].update('')
     
     elif event == "Pregled": #pregled upisa u liste
         try:
@@ -224,9 +248,32 @@ while True:
             window['sdu'].update(Usred)
             window['Tlis'].update(Traz)
             window['Ulis'].update(Uraz)
-        except NameError:
+        except NameError: #ako skripta nema podataka za prikazati
             window['sdt'].update("Memorija skripte je prazna!")
             window['sdu'].update("Memorija skripte je prazna!")
+    
+    elif event == "Izračuaj T i U": #izračunavanje vrijednosti temperature i vlage izraka iz podataka automatske postaje i prosječnog odstupanja
+        if len(Traz) == 0 or len(Uraz) == 0:
+            window['ti'].update("Nema podataka o razlikama.")
+            window['ui'].update("Nema podataka o razlikama.")
+        else:
+            try:
+                tx = values['t']
+                ux = values['u']
+                txx = float(tx.replace(",","."))
+                uxx = float(ux.replace(",","."))
+                ty = round(sum(Traz) / len(Traz),1) #srednja razlika temperature zraka
+                uy = round(sum(Uraz) / len(Uraz)) #srednja razlika vlage zraka
+                #računanje
+                tizra = round(txx + ty,1)
+                uizra = round(uxx + uy)
+                #ispis
+                window['ti'].update(tizra)
+                window['ui'].update(uizra)
+            except ValueError:
+                window['ti'].update("Potrebno upisati ovu vrijednost.")
+                window['ui'].update("Potrebno upisati ovu vrijednost.")
+
         
     elif event == "Pomoć": #otvaranje ekrana sa tekstom kako koristiti skriptu
         sg.Print("AVG - GUI verzija")
@@ -238,6 +285,8 @@ while True:
         sg.Print("Ta - Unosi se podatak o temperaturi zraka dobiven mjerenjem automatske meteorološke postaje. Potrebno je koristiti decimalnu točku.")
         sg.Print("Uk - Unosi se podatak o relativnoj vlazi zraka dobiven klasičnim mjerenjem.")
         sg.Print("Ua - Unosi se podatak o relativnoj vlazi zraka dobiven mjerenjem automatske meteorološke postaje.")
+        sg.Print("T - Unosi se podatak trenutne temperature zraka na automatskoj postaji kojem se zatim dodaje srednja vrijednost odstupanja.")
+        sg.Print("U - Unosi se podatak trenutne relativne zraka na automatskoj postaji kojem se zatim dodaje srednja vrijednost odstupanja.")
         sg.Print("")
         sg.Print("GUMBI ZA NAREDBE:")
         sg.Print("IZRAČUNAJ - Izračunava razliku između mjerenja. Podatke o razlikama unosi u memoriju skripte te potom računa prosječnu razliku i ispisuje je na ekranu. Prilikom korištenja ove naredbe, nove izračunate vrijednosti razlika se automatski upisuju u .avg_mem.txt datoteku.")
@@ -247,5 +296,6 @@ while True:
         sg.Print("IZBRIŠI PRVO - Briše najstariji unos u liste memorije skripte.")
         sg.Print("IZBRIŠI ZADNJE - Briše najstariji unos u liste memorije skripte.")
         sg.Print("IZBRIŠI MEMORIJU - Briše sav sadržaj lista memorije skripte, ali ne briše memoriju spremljenu u .avg_mem.txt datoteku.")
+        sg.Print("IZRAČUNAJ U i I - dodavanje srednje vrijednosti odstupanja na upisane trenitne vrijednosti sa automatske meteorološke postaje.")
 
 window.close()
