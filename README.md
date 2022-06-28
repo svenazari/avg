@@ -15,4 +15,5 @@ Naredbe (za CLI verziju):
 </pre>
 
 NOVO:<br>
+28.06.2022. - U GUI verziju dodana mogućnost upis podataka o temeraturi i vlagi zraka sa automatske meteorološke postaje kako bi skripta na te vrijednosti dodala vrijednosti srednjeg odstupanja<br>
 16.06.2022. - U GUI verziji popravljen dio koda za pregled razlika u slučaju da su liste prazne. Skripta u tom slučaju se više ne ruši, već daje obavijest da su liste prazne.
